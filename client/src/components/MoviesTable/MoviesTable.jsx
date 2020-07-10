@@ -53,9 +53,9 @@ class MoviesTable extends React.Component {
     render() {
         const { anchorEl, openDialog, data: activeElem = {} } = this.state;
 
-        const { classes } = this.props;
+        const { classes, data } = this.props;
 
-        console.log(this.props.data);
+        console.log('data.movies = ', data.movies);
 
         return (
             <>
@@ -73,7 +73,7 @@ class MoviesTable extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {movies.map(movie => {
+                            {(data.movies && data.movies.length) && data.movies.map(movie => {
                                 return (
                                     <TableRow key={movie.id}>
                                         <TableCell component="th" scope="row">{movie.name}</TableCell>

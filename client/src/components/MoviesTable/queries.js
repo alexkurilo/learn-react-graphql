@@ -6,6 +6,9 @@ export const moviesQuery = gql`
       id
       name
       genre
+      director {
+        name
+      }
     }
   }
 `;
