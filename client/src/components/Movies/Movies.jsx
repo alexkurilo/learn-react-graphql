@@ -3,7 +3,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import MoviesTable from '../MoviesTable/MoviesTable';
-import MoviesForm from '../MoviesForm/MoviesForm';
+import MyMoviesForm from '../MoviesForm/MoviesForm';
 
 import withHocs from './MoviesHoc';
 
@@ -50,7 +50,7 @@ class Movies extends React.Component {
 
         return (
             <>
-                <MoviesForm handleChange={this.handleChange} handleSelectChange={this.handleSelectChange} handleCheckboxChange={this.handleCheckboxChange} selectedValue={{ id, name, genre, watched, rate, directorId }} open={open} onClose={this.handleClose} />
+                <MyMoviesForm handleChange={this.handleChange} handleSelectChange={this.handleSelectChange} handleCheckboxChange={this.handleCheckboxChange} selectedValue={{ id, name, genre, watched, rate, directorId }} open={open} onClose={this.handleClose} />
                 <div className={classes.wrapper}>
                     <MoviesTable onOpen={this.handleClickOpen} onClose={this.handleClose} />
                     <Fab onClick={() => this.handleClickOpen()} color="primary" aria-label="Add" className={classes.fab}>
