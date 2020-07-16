@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -7,8 +7,9 @@ import MyMoviesForm from '../MoviesForm/MoviesForm';
 
 import withHocs from './MoviesHoc';
 
-class Movies extends React.Component {
-    state = {
+const Movies = ({classes}) => {
+    const initialMovieState = {
+        id: '',
         open: false,
         name: '',
         genre: '',
@@ -17,45 +18,60 @@ class Movies extends React.Component {
         directorId: '',
     };
 
-    handleClickOpen = (data = {}) => {
-        this.setState({
-            open: true,
+    const [open, setOpen] = useState(false);
+    const [movie, setMovie] = useState({ ...initialMovieState });
+
+    const handleClickOpen = (data = {}) => {
+        setOpen(true);
+        setMovie({
+            ...initialMovieState,
             ...data,
-            directorId: data.director ? data.director.id : '',
         });
     };
 
-    handleClose = () => {
-        this.setState({
-            id: '',
-            name: '',
-            genre: '',
-            watched: false,
-            rate: 0,
-            directorId: '',
-            open: false
-        });
+    const handleClose = () => {
+        setOpen(false);
+        setMovie({ ...initialMovieState });
     };
 
-    handleSelectChange = ({ target }) => { this.setState({ [target.name]: target.value }); };
-    handleCheckboxChange = name => ({ target }) => { this.setState({ [name]: target.checked }); };
-    handleChange = name => ({ target }) => { this.setState({ [name]: target.value }); };
+    const handleSelectChange = ({ target }) => { setMovie({
+        ...movie,
+        [target.name]: target.value,
+    })};
 
-    render() {
-        const { id, name, genre, watched, rate, directorId, open } = this.state;
-        const { classes } = this.props;
+    const handleCheckboxChange = name => ({ target }) => { setMovie({
+        ...movie,
+        [name]: target.checked,
+    })};
 
-        return (
-            <>
-                <MyMoviesForm handleChange={this.handleChange} handleSelectChange={this.handleSelectChange} handleCheckboxChange={this.handleCheckboxChange} selectedValue={{ id, name, genre, watched, rate, directorId }} open={open} onClose={this.handleClose} />
-                <div className={classes.wrapper}>
-                    <MoviesTable onOpen={this.handleClickOpen} onClose={this.handleClose} />
-                    <Fab onClick={() => this.handleClickOpen()} color="primary" aria-label="Add" className={classes.fab}>
-                        <AddIcon />
-                    </Fab>
-                </div>
-            </>
-        );
-    }
+    const handleChange = name => ({ target }) => { setMovie({
+        ...movie,
+        [name]: target.value,
+    })};
+
+    const { id, name, genre, watched, rate, directorId } = movie;
+
+    return (
+        <>
+            <MyMoviesForm handleChange={handleChange}
+                          handleSelectChange={handleSelectChange}
+                          handleCheckboxChange={handleCheckboxChange}
+                          selectedValue={{ id, name, genre, watched, rate, directorId }}
+                          open={open}
+                          onClose={handleClose}
+            />
+            <div className={classes.wrapper}>
+                <MoviesTable onOpen={handleClickOpen}
+                             onClose={handleClose} />
+                <Fab onClick={() => handleClickOpen()} c
+                     olor="primary"
+                     aria-label="Add"
+                     className={classes.fab}
+                >
+                    <AddIcon />
+                </Fab>
+            </div>
+        </>
+    );
 };
 export default withHocs(Movies)

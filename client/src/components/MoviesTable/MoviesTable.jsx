@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Checkbox from '@material-ui/core/Checkbox';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CreateIcon from '@material-ui/icons/Create';
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Checkbox,
+    IconButton,
+    MenuItem,
+    Menu,
+} from '@material-ui/core';
+
+import {
+    MoreVert as MoreIcon,
+    Delete as DeleteIcon,
+    Create as CreateIcon,
+} from '@material-ui/icons';
 
 import MoviesDialog from '../MoviesDialog/MoviesDialog';
 
