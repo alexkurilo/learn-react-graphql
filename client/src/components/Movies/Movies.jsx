@@ -18,13 +18,14 @@ class Movies extends React.Component {
     };
 
     handleClickOpen = (data = {}) => {
+        console.log('data = ', data);
         this.setState({
             open: true,
             ...data,
             directorId: data.director ? data.director.id : '',
         });
-
         console.log('this.state = ', this.state);
+
     };
 
     handleClose = () => {
