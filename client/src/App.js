@@ -3,7 +3,6 @@ import Tabs from './components/Tabs/Tabs';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import theme from './components/theme';
-// import MyComponent from './components/MyComponent/MyComponent';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
@@ -18,7 +17,6 @@ class App extends Component {
                 <ThemeProvider theme={theme}>
                     <Tabs />
                 </ThemeProvider>
-                {/*<MyComponent/>*/}
             </ApolloProvider>
         );
     }
