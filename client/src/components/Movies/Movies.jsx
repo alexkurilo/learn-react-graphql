@@ -10,7 +10,6 @@ import withHocs from './MoviesHoc';
 const Movies = ({classes}) => {
     const initialMovieState = {
         id: '',
-        open: false,
         name: '',
         genre: '',
         watched: false,
@@ -21,7 +20,7 @@ const Movies = ({classes}) => {
     const [open, setOpen] = useState(false);
     const [movie, setMovie] = useState({ ...initialMovieState });
 
-    const handleClickOpen = (data = {}) => {
+    const handleClickOpen = ( data = {} ) => {
         setOpen(true);
         setMovie({
             ...initialMovieState,
@@ -63,8 +62,8 @@ const Movies = ({classes}) => {
             <div className={classes.wrapper}>
                 <MoviesTable onOpen={handleClickOpen}
                              onClose={handleClose} />
-                <Fab onClick={() => handleClickOpen()} c
-                     olor="primary"
+                <Fab onClick={handleClickOpen}
+                     color="primary"
                      aria-label="Add"
                      className={classes.fab}
                 >
@@ -74,4 +73,4 @@ const Movies = ({classes}) => {
         </>
     );
 };
-export default withHocs(Movies)
+export default withHocs(Movies);

@@ -13,6 +13,9 @@ const withGraphqlAdd = graphql(addMovieMutation, {
             variables: movie,
             refetchQueries: [
                 {
+                    query: directorsQuery,
+                },
+                {
                     query: moviesQuery,
                 },
             ],

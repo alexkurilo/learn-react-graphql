@@ -1,11 +1,16 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
+import {
+    AppBar,
+    Tabs,
+    Tab,
+    Typography,
+} from '@material-ui/core';
+
 import SwipeableViews from 'react-swipeable-views';
-import MovieCreationIcon from '@material-ui/icons/MovieCreation';
-import CameraIcon from '@material-ui/icons/Camera';
+import {
+    MovieCreation as MovieCreationIcon,
+    Camera as CameraIcon,
+} from '@material-ui/icons';
 
 import Movies from '../Movies/Movies';
 import Directors from '../Directors/Directors';
@@ -13,38 +18,44 @@ import Directors from '../Directors/Directors';
 import withHocs from './TabsHoc';
 
 const TabContainer = ({ children, dir }) => (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div"
+                dir={dir}
+                style={{ padding: 8 * 3 }}
+    >
         {children}
     </Typography>
 );
 
-class SimpleTabs extends React.Component {
-    state = {
-        value: 0,
-    };
+const SimpleTabs = ({ classes, theme }) => {
+    const [value, setValue] = useState(0);
 
-    handleChange = (event, value) => { this.setState({ value }); };
-    handleChangeIndex = index => { this.setState({ value: index }); };
+    const handleChange = (event, value) => { setValue(value) };
+    const handleChangeIndex = index => { setValue(index) };
 
-    render() {
-        const { classes, theme } = this.props;
-        const { value } = this.state;
-
-        return (
-            <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs variant='fullWidth' value={value} onChange={this.handleChange}>
-                        <Tab label="Movies" icon={<CameraIcon />} />
-                        <Tab label="Directors" icon={<MovieCreationIcon />} />
-                    </Tabs>
-                </AppBar>
-                <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={this.handleChangeIndex} >
-                    <TabContainer dir={theme.direction}><Movies /></TabContainer>
-                    <TabContainer dir={theme.direction}><Directors /></TabContainer>
-                </SwipeableViews>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Tabs variant='fullWidth'
+                      value={value}
+                      onChange={handleChange}
+                >
+                    <Tab label="Movies" icon={<CameraIcon />} />
+                    <Tab label="Directors" icon={<MovieCreationIcon />} />
+                </Tabs>
+            </AppBar>
+            <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                            index={value}
+                            onChangeIndex={handleChangeIndex}
+            >
+                <TabContainer dir={theme.direction}>
+                    <Movies />
+                </TabContainer>
+                <TabContainer dir={theme.direction}>
+                    <Directors />
+                </TabContainer>
+            </SwipeableViews>
+        </div>
+    );
+};
 
 export default withHocs(SimpleTabs);
