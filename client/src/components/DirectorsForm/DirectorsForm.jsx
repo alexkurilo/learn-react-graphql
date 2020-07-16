@@ -8,16 +8,31 @@ import SaveIcon from '@material-ui/icons/Save';
 import withHocs from './DirectorsFormHoc';
 
 class DirectorsForm extends React.Component {
+    state = {
+        newDirector: {},
+    };
+
     handleClose = () => { this.props.onClose(); };
 
     handleSave = () => {
-        const { selectedValue, onClose } = this.props;
+        const { selectedValue, onClose , addDirector, updateDirector} = this.props;
         const { id, name, age } = selectedValue;
+        id ?
+            updateDirector({
+                id,
+                name,
+                age: Number(age),
+            }) :
+            addDirector({
+                name,
+                age: Number(age),
+            });
+
         onClose();
     };
 
     render() {
-        const { classes, open, handleChange, selectedValue = {} } = this.props;
+        const { classes, open, handleChange, selectedValue = {}, data = {} } = this.props;
         const { name, age } = selectedValue;
 
         return (

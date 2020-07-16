@@ -15,7 +15,7 @@ class Movies extends React.Component {
         watched: false,
         rate: 0,
         directorId: '',
-    }
+    };
 
     handleClickOpen = (data = {}) => {
         this.setState({
@@ -23,10 +23,13 @@ class Movies extends React.Component {
             ...data,
             directorId: data.director ? data.director.id : '',
         });
+
+        console.log('this.state = ', this.state);
     };
 
     handleClose = () => {
         this.setState({
+            id: '',
             name: '',
             genre: '',
             watched: false,

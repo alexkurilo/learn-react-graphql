@@ -1,0 +1,12 @@
+query moviesQuery {
+    movies {
+        id
+        name
+        genre
+        watched
+        rate
+        director {
+            name
+        }
+    }
+}
