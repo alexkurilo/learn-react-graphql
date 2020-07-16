@@ -3,12 +3,16 @@ import { graphql } from 'react-apollo';
 
 import { deleteMovieMutation } from './mutation';
 import { moviesQuery } from '../MoviesTable/queries';
+import {directorsQuery} from "../DirectorsTable/queries";
 
 const withGraphqlDelete = graphql(deleteMovieMutation, {
     props: ({ mutate }) => ({
         deleteMovie: id => mutate({
             variables: id,
             refetchQueries: [
+                {
+                    query: directorsQuery,
+                },
                 {
                     query: moviesQuery,
                 },
