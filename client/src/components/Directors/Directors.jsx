@@ -10,10 +10,11 @@ import withHocs from './DirectorsHoc';
 
 class Directors extends React.Component {
     state = {
+        id: '',
         open: false,
         name: '',
         age: 0,
-    }
+    };
 
     handleClickOpen = (data) => {
         this.setState({

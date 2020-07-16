@@ -17,11 +17,6 @@ import MoviesDialog from '../MoviesDialog/MoviesDialog';
 
 import withHocs from './MoviesTableHoc';
 
-const movies = [
-    { id: 1, name: 'Pulp Fiction', genre: 'Crime', rate: 10, director: { name: 'Quentin Tarantino' }, watched: true },
-    { id: 2, name: 'Lock, Stock and Two Smoking Barrels', genre: 'Crime-comedy', rate: 9, director: { name: 'Guy Ritchie' }, watched: false },
-];
-
 class MoviesTable extends React.Component {
     state = {
         anchorEl: null,
@@ -52,10 +47,9 @@ class MoviesTable extends React.Component {
 
     render() {
         const { anchorEl, openDialog, data: activeElem = {} } = this.state;
-
-        const { classes, data } = this.props;
-
-        console.log('data.movies = ', data.movies);
+        const { classes, data = {} } = this.props;
+        const { movies = [] } = data;
+        // console.log('movies = ', movies);
 
         return (
             <>
@@ -73,13 +67,13 @@ class MoviesTable extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {(data.movies && data.movies.length) && data.movies.map(movie => {
+                            { movies.map(movie => {
                                 return (
                                     <TableRow key={movie.id}>
                                         <TableCell component="th" scope="row">{movie.name}</TableCell>
                                         <TableCell>{movie.genre}</TableCell>
                                         <TableCell align="right">{movie.rate}</TableCell>
-                                        <TableCell>{movie.director.name}</TableCell>
+                                        <TableCell>{movie.director ? movie.director.name : 'Unknown director'}</TableCell>
                                         <TableCell>
                                             <Checkbox checked={movie.watched} disabled />
                                         </TableCell>

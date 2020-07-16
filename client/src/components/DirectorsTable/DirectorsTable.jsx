@@ -16,11 +16,6 @@ import DirectorsDialog from '../DirectorsDialog/DirectorsDialog';
 
 import withHocs from './DirectorsTableHoc';
 
-const directors = [
-    { id: 1, name: 'Quentin Tarantino', age: 55, movies: [ { name: 'Movie 1' }, { name: 'Movie 2' } ] },
-    { id: 2, name: 'Guy Ritchie', age: 50, movies: [ { name: 'Movie 1' }, { name: 'Movie 2' } ] }
-];
-
 class DirectorsTable extends React.Component {
     state = {
         anchorEl: null,
@@ -49,16 +44,23 @@ class DirectorsTable extends React.Component {
         this.handleClose();
     };
 
+    tableClick = event => {
+        event.stopPropagation();
+        event.preventDefault();
+        this.props.allDirectors();
+    };
+
     render() {
         const { anchorEl, openDialog, data: activeElem = {} } = this.state;
-        const { classes } = this.props;
+        const { classes, data = {} } = this.props;
+        const { directors = [] } = data;
 
         return (
             <>
                 <DirectorsDialog open={openDialog} handleClose={this.handleDialogClose} id={activeElem.id} />
                 <Paper className={classes.root}>
                     <Table>
-                        <TableHead>
+                        <TableHead onClick={this.tableClick}>
                             <TableRow>
                                 <TableCell>Name</TableCell>
                                 <TableCell align="right">Age</TableCell>
@@ -67,7 +69,7 @@ class DirectorsTable extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {directors.map(director => {
+                            { directors.map(director => {
                                 return (
                                     <TableRow key={director.id}>
                                         <TableCell component="th" scope="row">{director.name}</TableCell>
